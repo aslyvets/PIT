@@ -1,30 +1,30 @@
-plugins {
-    id("org.jetbrains.kotlin.js") version "1.3.70-eap-184"
-}
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "com.pit"
 version = "0.1-SNAPSHOT"
 
+plugins {
+    kotlin("jvm") version "1.3.61"
+}
+
 repositories {
-    maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
-    maven("https://kotlin.bintray.com/kotlin-js-wrappers/")
-    mavenCentral()
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    implementation(kotlin("stdlib-js"))
-
-    //React
-    implementation("org.jetbrains:kotlin-react:16.9.0-pre.89-kotlin-1.3.60")
-    implementation("org.jetbrains:kotlin-react-dom:16.9.0-pre.89-kotlin-1.3.60")
-    implementation(npm("react", "16.12.0"))
-    implementation(npm("react-dom", "16.12.0"))
-    implementation(npm("styled-components"))
-    implementation(npm("react-player"))
-    implementation(npm("inline-style-prefixer"))
-
-    implementation("org.jetbrains:kotlin-styled:1.0.0-pre.90-kotlin-1.3.61")
+    implementation(group = "org.jetbrains.kotlinx", name = "kotlinx-html-jvm", version ="0.7.1")
+    implementation(group = "org.jetbrains.kotlinx", name = "kotlinx-html-js",  version ="0.7.1")
+    implementation(group = "io.ktor", name = "ktor", version = "1.3.0")
+    implementation(group = "io.ktor", name = "ktor-server-netty", version = "1.3.0")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
-kotlin.target.browser { }
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}
