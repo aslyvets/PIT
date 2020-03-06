@@ -1,2 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+.option-button {
+  width: 350px;
+  height: 170px;
+  font-size: 2em;
+  padding: 5px;
+  margin: 10px;
+  color: #fff !important;
+  background: #60a3bc;
+  border-radius: 50px;
+  border: none;
+  transition: all 0.4s ease 0s;
+}
+
+.option-button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+  transition: all 0.4s ease 0s;
+}
