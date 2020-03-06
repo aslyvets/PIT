@@ -1,30 +1,63 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-group = "com.pit"
-version = "0.1-SNAPSHOT"
-
-plugins {
-    kotlin("jvm") version "1.3.61"
-}
+import com.moowork.gradle.node.npm.NpxTask
 
 repositories {
     jcenter()
     mavenCentral()
+    maven("https://dl.bintray.com/kotlin/ktor")
+    maven("https://dl.bintray.com/kotlin/kotlinx")
 }
 
-dependencies {
-    implementation(group = "org.jetbrains.kotlinx", name = "kotlinx-html-jvm", version ="0.7.1")
-    implementation(group = "org.jetbrains.kotlinx", name = "kotlinx-html-js",  version ="0.7.1")
-    implementation(group = "io.ktor", name = "ktor", version = "1.3.0")
-    implementation(group = "io.ktor", name = "ktor-server-netty", version = "1.3.0")
+buildscript {
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.70")
+    }
+}
+
+plugins {
+    id("com.github.node-gradle.node") version "2.2.1"
+    kotlin("multiplatform") version "1.3.70"
+}
+
+node {
+    version = "12.15.0"
+    npmVersion = "6.13.6"
+    nodeModulesDir = file("${project.projectDir}/src/angular")
+    npmWorkDir = file("${project.buildDir}/npmWorkDir")
+}
+
+tasks.register<NpxTask>("ngBuild"){
+    dependsOn("npmInstall")
+    println("installing angular project")
+    command = "ng"
+    setArgs(listOf("build"))
+}
+
+
+kotlin {
+    jvm {}
+}
+
+val ktorVersion = "1.3.0"
+val logbackVersion = "1.2.3"
+
+kotlin.sourceSets["jvmMain"].dependencies {
     implementation(kotlin("stdlib-jdk8"))
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+    implementation("io.ktor:ktor-websockets:$ktorVersion")
+    implementation("io.ktor:ktor-html-builder:$ktorVersion")
+    implementation("ch.qos.logback:logback-classic:$logbackVersion")
 }
 
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
-}
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "1.8"
+
+val run by tasks.creating(JavaExec::class) {
+    group = "application"
+    main = "com.pit.MainKt"
+    kotlin {
+        val main = targets["jvm"].compilations["main"]
+        dependsOn(main.compileAllTaskName)
+        classpath(
+            { main.output.allOutputs.files },
+            { configurations["jvmRuntimeClasspath"] }
+        )
+    }
 }
