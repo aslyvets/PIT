@@ -12,6 +12,7 @@ import {AngularFittextModule} from 'angular-fittext';
 import {AppRoutingModule} from "./app-routing.module";
 import { MainComponent } from './components/main/main.component';
 import { PlayerOptionsComponent } from './components/player-options/player-options.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { PlayerOptionsComponent } from './components/player-options/player-optio
     }),
     AngularFittextModule,
     AppRoutingModule,
+    HttpClientModule
   ],
   providers: [
     WebsocketService,

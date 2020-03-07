@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {GameService} from "../../services/game/game.service";
 
 @Component({
   selector: 'app-main',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  constructor(private gameService: GameService) { }
 
   ngOnInit(): void {
   }
@@ -17,6 +18,9 @@ export class MainComponent implements OnInit {
   }
 
   createGame() {
-
+    let observable = this.gameService.createGame();
+    observable.subscribe(res => {
+      console.log("response: " + res);
+    })
   }
 }

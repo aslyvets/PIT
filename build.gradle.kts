@@ -7,15 +7,9 @@ repositories {
     maven("https://dl.bintray.com/kotlin/kotlinx")
 }
 
-buildscript {
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.70")
-    }
-}
-
 plugins {
     id("com.github.node-gradle.node") version "2.2.1"
-    kotlin("multiplatform") version "1.3.70"
+    kotlin("jvm") version "1.3.70"
 }
 
 node {
@@ -25,39 +19,21 @@ node {
     npmWorkDir = file("${project.buildDir}/npmWorkDir")
 }
 
-tasks.register<NpxTask>("ngBuild"){
+tasks.register<NpxTask>("ngBuild") {
     dependsOn("npmInstall")
     println("installing angular project")
     command = "ng"
     setArgs(listOf("build"))
 }
 
-
-kotlin {
-    jvm {}
-}
-
 val ktorVersion = "1.3.0"
 val logbackVersion = "1.2.3"
 
-kotlin.sourceSets["jvmMain"].dependencies {
+dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
     implementation("io.ktor:ktor-websockets:$ktorVersion")
     implementation("io.ktor:ktor-html-builder:$ktorVersion")
+    implementation("io.ktor:ktor-jackson:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
-}
-
-
-val run by tasks.creating(JavaExec::class) {
-    group = "application"
-    main = "com.pit.MainKt"
-    kotlin {
-        val main = targets["jvm"].compilations["main"]
-        dependsOn(main.compileAllTaskName)
-        classpath(
-            { main.output.allOutputs.files },
-            { configurations["jvmRuntimeClasspath"] }
-        )
-    }
 }
