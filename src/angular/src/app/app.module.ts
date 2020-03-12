@@ -6,13 +6,11 @@ import {AppComponent} from './app.component';
 import {VideoComponent} from './components/video/video.component';
 import {WebsocketService} from "./services/websocket/websocket.service";
 import {MsgService} from "./services/msg/msg.service";
-import {WebsocketModule} from "./services/websocket/websocket.module";
-import {environment} from "../environments/environment";
-import {AngularFittextModule} from 'angular-fittext';
 import {AppRoutingModule} from "./app-routing.module";
 import { MainComponent } from './components/main/main.component';
 import { PlayerOptionsComponent } from './components/player-options/player-options.component';
 import {HttpClientModule} from "@angular/common/http";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -24,12 +22,9 @@ import {HttpClientModule} from "@angular/common/http";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    WebsocketModule.config({
-      url: environment.WS_URL
-    }),
-    AngularFittextModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [
     WebsocketService,

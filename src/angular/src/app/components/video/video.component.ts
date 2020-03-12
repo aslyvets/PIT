@@ -13,7 +13,8 @@ export class VideoComponent {
   }
 
   timeChecker(video: HTMLVideoElement) {
-    if (video.currentTime >= 2 && this.lastCheck < 2) {
+    let secondToStop = 2;
+    if (video.currentTime >= secondToStop && this.lastCheck < secondToStop) {
       video.pause();
     }
     this.lastCheck = video.currentTime;

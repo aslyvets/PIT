@@ -1,7 +1,10 @@
-<video #video
+<video #video class="centered"
        (timeupdate) = "timeChecker(this.video)"
        [autoplay]="true"
        [preload]="true"
+       [controls]="true"
+       [width]="360"
+       [height]="480"
        [src]="currentVideo"
 >
 </video>

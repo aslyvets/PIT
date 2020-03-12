@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GameService} from "../../services/game/game.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-main',
@@ -8,7 +9,11 @@ import {GameService} from "../../services/game/game.service";
 })
 export class MainComponent implements OnInit {
 
-  constructor(private gameService: GameService) { }
+  constructor(
+    private gameService: GameService,
+    private router: Router
+  ) {
+  }
 
   ngOnInit(): void {
   }
@@ -20,7 +25,9 @@ export class MainComponent implements OnInit {
   createGame() {
     let observable = this.gameService.createGame();
     observable.subscribe(res => {
-      console.log("response: " + res);
+      console.log(res);
+      console.log(res.name);
     })
+    this.router.navigate(['/options'])
   }
 }

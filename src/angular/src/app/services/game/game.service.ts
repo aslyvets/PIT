@@ -17,14 +17,16 @@ export class GameService {
   private createGameSuffix: string = 'createGame';
   private playSuffix: string = 'play';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+  ) { }
 
   createGame(): Observable<any> {
     const url = `${this.baseGameUrl}/${this.createGameSuffix}`;
     const game = {
       name: "private"
     };
-    return this.http.post(url, null, httpOptions);
+    return this.http.post(url, game, httpOptions);
   }
 
   play(): Observable<any> {
