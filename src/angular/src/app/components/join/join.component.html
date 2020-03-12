@@ -1,0 +1,29 @@
+<div class="text-center">
+  <form class="form-signin">
+    <h1 class="h3 mb-3 font-weight-normal">
+      Join the game
+    </h1>
+
+    <label
+      for="inputPlayerName"
+      class="sr-only">
+      Your name
+    </label>
+    <input
+      type="text"
+      id="inputPlayerName"
+      class="form-control"
+      name="playerName"
+      [(ngModel)]="playerName"
+      placeholder="Your name"
+      required
+      autofocus>
+
+    <button
+      class="btn btn-lg btn-primary btn-block"
+      type="submit"
+      (click)="joinGame()"
+    > Join
+    </button>
+  </form>
+</div>

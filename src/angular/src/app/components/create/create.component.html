@@ -1,0 +1,43 @@
+<div class="text-center">
+  <form class="form-signin">
+    <h1 class="h3 mb-3 font-weight-normal">
+      Create your game
+    </h1>
+    <label
+      for="inputGameName"
+      class="sr-only">
+      Game name
+    </label>
+    <input
+      type="text"
+      id="inputGameName"
+      class="form-control"
+      name="gameName"
+      [(ngModel)]="gameName"
+      placeholder="Game name"
+      required
+      autofocus>
+
+    <label
+      for="inputAuthorName"
+      class="sr-only">
+      Your name
+    </label>
+    <input
+      type="text"
+      id="inputAuthorName"
+      class="form-control"
+      name="authorName"
+      [(ngModel)]="authorName"
+      placeholder="Your name"
+      required
+      autofocus>
+
+    <button
+      class="btn btn-lg btn-primary btn-block"
+      type="submit"
+      (click)="createGame()"
+    > Create
+    </button>
+  </form>
+</div>
