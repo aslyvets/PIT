@@ -3,6 +3,7 @@ package com.pit
 import com.pit.config.*
 import com.pit.model.Game
 import com.pit.model.JoinRequest
+import com.pit.model.PostQuestion
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.CallLogging
@@ -42,11 +43,15 @@ fun main() {
             post("/join") {
                 val joinRequest = call.receive<JoinRequest>()
                 activeGames.join(joinRequest)
-                println(activeGames)
                 call.respond(joinRequest)
             }
+            post("/question") {
+                val postQuestion = call.receive<PostQuestion>()
+                activeGames.postQuestion(postQuestion)
+                call.respond(postQuestion)
+                sendQuestion(postQuestion.question!!)
+            }
             get("/games"){
-                println(activeGames.games)
                 call.respond(activeGames.games.values)
             }
 

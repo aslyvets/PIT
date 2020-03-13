@@ -1,7 +1,7 @@
 <div class="text-center">
   <form class="form-signin">
     <h1 class="h3 mb-3 font-weight-normal">
-      Join the game
+      Join the game <span class="text-primary">{{gameName}}</span>
     </h1>
 
     <label
@@ -15,7 +15,7 @@
       class="form-control"
       name="playerName"
       [(ngModel)]="playerName"
-      placeholder="Your name"
+      placeholder="Enter your name"
       required
       autofocus>
 

@@ -5,6 +5,7 @@ import {PlayerOptionsComponent} from "./components/player-options/player-options
 import {CreateComponent} from "./components/create/create.component";
 import {GamesComponent} from "./components/games/games.component";
 import {JoinComponent} from "./components/join/join.component";
+import {QuestionComponent} from "./components/question/question.component";
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'create', component: CreateComponent},
   {path: 'games', component: GamesComponent},
   {path: 'join', component: JoinComponent},
+  {path: 'question', component: QuestionComponent},
 ];
 
 @NgModule({

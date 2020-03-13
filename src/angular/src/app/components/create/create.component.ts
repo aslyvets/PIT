@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {GameService} from "../../services/game/game.service";
 import {Router} from "@angular/router";
+import {GameStateService} from "../../services/game-state.service";
 
 @Component({
   selector: 'app-create',
@@ -13,14 +14,17 @@ export class CreateComponent {
 
   constructor(
     private gameService: GameService,
-    private router: Router
+    private router: Router,
+    private gameState: GameStateService
   ) {
   }
 
   createGame() {
+    this.gameState.isAuthor = true;
+    this.gameState.gameName = this.gameName;
     this.gameService
       .createGame(this.gameName, this.authorName)
       .subscribe();
-    this.router.navigate(['/games'])
+    this.router.navigate(['/question'])
   }
 }

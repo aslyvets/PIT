@@ -1,0 +1,14 @@
+<div class="jumbotron text-center">
+  <div class="container">
+    <h1>Insert your question below</h1>
+    <label for="question" [hidden]="!gameState.isAuthor">
+      <textarea class="text-body"
+                id="question"
+                [(ngModel)]="question">
+      </textarea>
+    </label>
+    <h3 [hidden]="gameState.isAuthor">{{question}}</h3>
+    <hr>
+    <a (click)="postQuestion()" class="btn btn-primary">Submit</a>
+  </div>
+</div>

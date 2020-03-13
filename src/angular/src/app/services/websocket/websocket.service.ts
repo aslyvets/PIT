@@ -2,7 +2,6 @@ import {Injectable, OnDestroy} from '@angular/core';
 import {$WebSocket} from 'angular2-websocket/angular2-websocket'
 import {environment} from "../../../environments/environment";
 
-
 @Injectable({
   providedIn: 'root'
 })

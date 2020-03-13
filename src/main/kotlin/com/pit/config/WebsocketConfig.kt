@@ -12,6 +12,11 @@ suspend fun sendPlay() {
     currentOngoing!!.send(Frame.Text("play"))
 }
 
+suspend fun sendQuestion(question: String) {
+    println(question)
+    currentOngoing!!.send(Frame.Text(question))
+}
+
 fun Routing.configureWebsocket() {
     webSocket("/echo") {
         currentOngoing = outgoing

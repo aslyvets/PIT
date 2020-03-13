@@ -4,8 +4,8 @@
     <ng-template  ngFor let-game [ngForOf]="games">
       <button
         class="option-button col-md-4"
-        routerLink="/join">
-        {{game.name}}
+        (click)="join(game.name)"
+      >{{game.name}}
       </button>
       <hr>
     </ng-template>

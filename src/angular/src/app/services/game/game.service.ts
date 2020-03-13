@@ -19,6 +19,7 @@ export class GameService {
   private createGameSuffix: string = 'createGame';
   private gameListSuffix: string = 'games';
   private joinGameSuffix: string = 'join';
+  private questionSuffix: string = 'question';
 
   constructor(
     private http: HttpClient,
@@ -47,5 +48,17 @@ export class GameService {
     };
 
     return this.http.post(url, joinRequest, httpOptions).subscribe();
+  }
+
+  postQuestion(question: string,
+               gameName: string) {
+    const url = `${this.baseGameUrl}/${this.questionSuffix}`;
+
+    const postQuestion = {
+      question: question,
+      gameName: gameName
+    };
+
+    return this.http.post(url, postQuestion, httpOptions).subscribe();
   }
 }
