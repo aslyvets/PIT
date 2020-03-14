@@ -16,6 +16,7 @@ import {FormsModule} from "@angular/forms";
 import { GamesComponent } from './components/games/games.component';
 import { JoinComponent } from './components/join/join.component';
 import { QuestionComponent } from './components/question/question.component';
+import { AnswerComponent } from './components/answer/answer.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { QuestionComponent } from './components/question/question.component';
     GamesComponent,
     JoinComponent,
     QuestionComponent,
+    AnswerComponent,
   ],
   imports: [
     BrowserModule,

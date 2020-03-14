@@ -1,52 +1,57 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {$WebSocket} from 'angular2-websocket/angular2-websocket'
+import {Injectable} from '@angular/core';
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
 import {environment} from "../../../environments/environment";
+import {GameStateService} from "../game-state.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class WebsocketService implements OnDestroy {
-  ws: $WebSocket;
+export class WebsocketService {
+  topic: string = "/topic/game";
+  stompClient: any;
 
-  constructor() {
-    this.ws = new $WebSocket(environment.WS_URL);
-
-    this.ws.onMessage(
-      (msg: MessageEvent) => {
-        console.log("onMessage ", msg.data);
-      },
-      {autoApply: false}
-    );
-
-    this.ws.getDataStream().subscribe(
-      (msg) => {
-        console.log("next", msg.data);
-        this.ws.close(false);
-      },
-      (msg) => {
-        console.log("error", msg);
-      },
-      () => {
-        console.log("complete");
-      }
-    );
+  constructor(
+    private gameState: GameStateService
+  ) {
   };
 
-  ngOnDestroy(): void {
-    this.ws.close(false);
+  connect() {
+    console.log("Initialize WebSocket Connection");
+    let ws = new SockJS(environment.WS_URL);
+    this.stompClient = Stomp.over(ws);
+    const _this = this;
+    _this.stompClient.connect({}, function (frame) {
+      _this.stompClient.subscribe(_this.topic, function (sdkEvent) {
+        _this.onMessageReceived(sdkEvent);
+      });
+      //_this.stompClient.reconnect_delay = 2000;
+    }, this.errorCallBack);
+  };
+
+  disconnect() {
+    if (this.stompClient !== null) {
+      this.stompClient.disconnect();
+    }
+    console.log("Disconnected");
   }
 
-  send(message: object) {
-    this.ws.send(message).subscribe(
-      (msg)=> {
-        console.log("next", msg.data);
-      },
-      (msg)=> {
-        console.log("error", msg);
-      },
-      ()=> {
-        console.log("complete from send");
-      }
-    );
+  // on error, schedule a reconnection attempt
+  errorCallBack(error) {
+    console.log("errorCallBack -> " + error);
+    setTimeout(() => {
+      this.connect();
+    }, 5000);
+  }
+
+  send(message) {
+    console.log("calling logout api via web socket");
+    this.stompClient.send("/app/game", {}, JSON.stringify(message));
+  }
+
+  onMessageReceived(message) {
+
+    console.log("Message Recieved from Server :: " + message);
+    // this.appComponent.handleMessage(JSON.stringify(message.body));
   }
 }

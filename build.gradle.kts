@@ -1,15 +1,20 @@
 import com.moowork.gradle.node.npm.NpxTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 repositories {
     jcenter()
     mavenCentral()
-    maven("https://dl.bintray.com/kotlin/ktor")
     maven("https://dl.bintray.com/kotlin/kotlinx")
 }
 
+val springBootVersion = "2.2.3.RELEASE"
+
 plugins {
+    id("io.spring.dependency-management") version "1.0.9.RELEASE"
+    id("org.springframework.boot") version "2.2.3.RELEASE"
     id("com.github.node-gradle.node") version "2.2.1"
     kotlin("jvm") version "1.3.70"
+    kotlin("plugin.spring") version "1.3.70"
 }
 
 node {
@@ -26,14 +31,16 @@ tasks.register<NpxTask>("ngBuild") {
     setArgs(listOf("build"))
 }
 
-val ktorVersion = "1.3.0"
-val logbackVersion = "1.2.3"
-
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("io.ktor:ktor-server-netty:$ktorVersion")
-    implementation("io.ktor:ktor-websockets:$ktorVersion")
-    implementation("io.ktor:ktor-html-builder:$ktorVersion")
-    implementation("io.ktor:ktor-jackson:$ktorVersion")
-    implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    runtime(group = "org.jetbrains.kotlin", name = "kotlin-reflect", version = "1.3.70")
+    compile("org.springframework.boot:spring-boot-starter-websocket:$springBootVersion")
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "1.8"
+    }
 }

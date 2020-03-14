@@ -7,8 +7,7 @@
                 [(ngModel)]="question">
       </textarea>
     </label>
-    <h3 [hidden]="gameState.isAuthor">{{question}}</h3>
     <hr>
-    <a (click)="postQuestion()" class="btn btn-primary">Submit</a>
+    <button (click)="postQuestion()" class="btn btn-primary">Submit</button>
   </div>
 </div>

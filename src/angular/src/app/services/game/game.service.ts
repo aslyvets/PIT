@@ -15,7 +15,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class GameService {
-  private baseGameUrl: string = 'http://192.168.178.64:8888';
+  // private baseGameUrl: string = 'http://192.168.178.64:8888';
+  private baseGameUrl: string = 'http://localhost:8080';
   private createGameSuffix: string = 'createGame';
   private gameListSuffix: string = 'games';
   private joinGameSuffix: string = 'join';
@@ -59,6 +60,6 @@ export class GameService {
       gameName: gameName
     };
 
-    return this.http.post(url, postQuestion, httpOptions).subscribe();
+    return this.http.post(url, postQuestion, httpOptions).subscribe(it => console.log(it));
   }
 }

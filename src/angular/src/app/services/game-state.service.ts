@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class GameStateService {
   public gameName: string;
+  public question: string;
   public isAuthor: boolean;
 
   constructor() { }

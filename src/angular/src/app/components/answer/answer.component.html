@@ -1,0 +1,14 @@
+<div class="jumbotron text-center">
+  <div class="container">
+    <h2>{{question}}</h2>
+    <h3>Insert your answer below</h3>
+    <label for="answer">
+      <textarea class="text-body"
+                id="answer"
+                [(ngModel)]="answer">
+      </textarea>
+    </label>
+    <hr>
+    <button (click)="postAnswer()" class="btn btn-primary">Submit</button>
+  </div>
+</div>

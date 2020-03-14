@@ -6,6 +6,7 @@ import {CreateComponent} from "./components/create/create.component";
 import {GamesComponent} from "./components/games/games.component";
 import {JoinComponent} from "./components/join/join.component";
 import {QuestionComponent} from "./components/question/question.component";
+import {AnswerComponent} from "./components/answer/answer.component";
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'games', component: GamesComponent},
   {path: 'join', component: JoinComponent},
   {path: 'question', component: QuestionComponent},
+  {path: 'answer', component: AnswerComponent},
 ];
 
 @NgModule({
